@@ -22,7 +22,9 @@ function calc() {
     con.classList.remove("red", "green");
     var Paspect = document.getElementById("Paspect").value / 100;
     var Pstat = document.getElementById("Pstat").value / 100;
-    var Hcost = document.getElementById("Hcost").value * (1 - (document.getElementById("Ecr").value / 100));
+    var Cm = 1 + (document.getElementById("Cm").value / 100);
+    var Ecr = 1 - (document.getElementById("Ecr").value / 100);
+    var Hcost = document.getElementById("Hcost").value * Ecr * Cm;
     var Hpc = document.getElementById("Hpc").value;
     var Plh = document.getElementById("Plh").value;
     var Rg = document.getElementById("Rg").value / 100 + 1;

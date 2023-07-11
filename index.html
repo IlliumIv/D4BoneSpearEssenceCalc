@@ -18,6 +18,11 @@
                         <input value="25" max="100" min="0" oninput="setValue('Hcost', 'Hcost_value')" id="Hcost" type="range">
                         <input value="25" max="100" min="0" oninput="setValue('Hcost_value', 'Hcost')" id="Hcost_value" type="number">
                         <span></span>
+
+                        <span>Skill Cost Multiplicator, %:</span>
+                        <input value="9" max="100" min="0" step="0.1" oninput="setValue('Cm', 'Cm_value')" id="Cm" type="range">
+                        <input value="9" max="100" min="0" oninput="setValue('Cm_value', 'Cm')" id="Cm_value" type="number">
+                        <span></span>
                         
                         <span>Maximum Resource:</span>
                         <input value="202" max="1000" min="100" oninput="setValue('Emax', 'Emax_value')" id="Emax" type="range">
@@ -60,8 +65,8 @@
                         <span></span>
 
                         <span id="Ggloves_desc">Gloves Generation, %:</span>
-                        <input value="11.3" max="50" min="0" step="0.1" oninput="setValue('Ggloves', 'Ggloves_value')" id="Ggloves" type="range">
-                        <input value="11.3" max="50" min="0" oninput="setValue('Ggloves_value', 'Ggloves')" id="Ggloves_value" type="number">
+                        <input value="17" max="50" min="0" step="0.1" oninput="setValue('Ggloves', 'Ggloves_value')" id="Ggloves" type="range">
+                        <input value="17" max="50" min="0" oninput="setValue('Ggloves_value', 'Ggloves')" id="Ggloves_value" type="number">
                         <input oninput="check('Ggloves')" id="Ggloves_check" type="checkbox" checked>
                         
                         <span id="Goffhand_desc" class="line-through">Offhand Generation, %:</span>
