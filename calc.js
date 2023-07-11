@@ -17,8 +17,8 @@ function check(id) {
 
 function calc() {
     var res = document.getElementById("result");
+    var etc = document.getElementById("etc");
     var con = document.getElementById("conclusion");
-    res.classList.remove("red", "green");
     con.classList.remove("red", "green");
     var Paspect = document.getElementById("Paspect").value / 100;
     var Pstat = document.getElementById("Pstat").value / 100;
@@ -46,14 +46,12 @@ function calc() {
     var compare;
     if (G > Hcost) {
         compare = "<";
-        res.classList.add("green");
         con.classList.add("green");
-        con.innerHTML = "On average resource be restored";
+        etc.innerHTML = "On average resource be restored";
     } else {
         compare = ">";
-        res.classList.add("red");
         con.classList.add("red");
-        con.innerHTML = "On average resource not be restored";
+        etc.innerHTML = "On average resource not be restored";
     }
     res.innerHTML = Hcost.toFixed(2).toString() + " " + compare + " " + G.toFixed(2).toString();
 }
