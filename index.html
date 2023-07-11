@@ -1,63 +1,91 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Resource Generation Calculator</title>
+    <meta name="description" content="Resource generation calculator for Diablo 4."/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" href="Necromancer-Essence-Resource.webp"/>
+</head>
 <html>
-  <style>
-    .parent {
-      display: grid;
-      grid-template-columns: 2fr repeat(3, 1fr);
-      grid-template-rows: repeat(11, 1fr);
-      grid-column-gap: 10px;
-      grid-row-gap: 10px;
-    }
-    .result {
-      grid-area: 11 / 1 / 12 / 5;
-      text-align: center;
-    }
-    .red { color: red; }
-    .green { color: green; }
-  </style>
-  <body>
-    <div class="parent">
-      <span>Param</span><span>Value</span><span>Max</span><span>Min</span>
-      <span>Bone Spear Cost:</span><input id="Hcost" type="number" value="17" max="30" min="0" oninput="calc()"><span>30</span><span>0</span>
-      <span>Hit per Cast:</span><input id="Hpc" type="number" value="4" max="10" min="1" oninput="calc()"><span>10</span><span>1</span>
-      <span>Lucky Hit Chance, %:</span><input id="Plh" type="number" value="70" max="100" min="0" oninput="calc()"><span>100</span><span>0</span>
-      <span>Exposed Flash Chance, %:</span><input id="Paspect" type="number" value="10" oninput="calc()"><span></span><span></span>
-      <span>Exposed Flash Generation:</span><input id="Gaspect" type="number" value="50" max="50" min="30" oninput="calc()"><span>50</span><span>30</span>
-      <span>Maximum Essence:</span><input id="Emax" type="number" value="202" max="1000" min="100" oninput="calc()"><span></span><span>100</span>
-      <span>Gloves\Offhand Chance, %:</span><input id="Pstat" type="number" value="5" oninput="calc()"><span></span><span></span>
-      <span>Gloves Generation, %:</span><input id="Ggloves" type="number" value="11" max="14" min="7.5" oninput="calc()"><span>14</span><span>7.5</span>
-      <span>Offhand Generation, %:</span><input id="Goffhand" type="number" value="0" max="14" min="7.5" oninput="calc()"><span>14</span><span>7.5</span>
-      <span class="result" id="result"></span>
-    </div>
-    </div>
-    <script>
-      function calc() {
-        const res = document.getElementById("result");
-        res.classList.remove("red", "green");
-        var Paspect = document.getElementById("Paspect").value / 100;
-        var Pstat = document.getElementById("Pstat").value / 100;
-        var Hcost = document.getElementById("Hcost").value;
-        var Hpc = document.getElementById("Hpc").value;
-        var Plh = document.getElementById("Plh").value;
-        var Gaspect = document.getElementById("Gaspect").value / 100;
-        var Ggloves = document.getElementById("Ggloves").value / 100;
-        var Goffhand = document.getElementById("Goffhand").value / 100;
-        var Emax = document.getElementById("Emax").value;
-        var Gapc = Hpc*Plh*Paspect*Gaspect;
-        var Ggpc = Hpc*Plh*Emax*Pstat*Ggloves / 100;
-        var Gopc = Hpc*Plh*Emax*Pstat*Goffhand / 100;
-        var G = Gapc + Ggpc + Gopc;
-        var compare;
-        if (G > Hcost) {
-          compare = "<";
-          res.classList.add("green");
-        }
-        else {
-          compare = ">";
-          res.classList.add("red");
-        }
-        res.innerHTML = Hcost.toString() + " " + compare + " " + G.toString();
-      }
-      calc();
-    </script> 
-  </body>
+    <body>
+        <div class="wrapper">
+            <div>
+                <h1><a href="https://illiumiv.github.io/D4BoneSpearEssenceCalc/index.html" style="color: #EEEEEE; text-decoration: none;">Resource Generation Calculator</a></h1>
+                <hr>
+                <div>
+                    <div class="form">
+                        <span>Base Skill Cost:</span>
+                        <input value="25" max="100" min="0" oninput="setValue('Hcost', 'Hcost_value')" id="Hcost" type="range">
+                        <input value="25" max="100" min="0" oninput="setValue('Hcost_value', 'Hcost')" id="Hcost_value" type="number">
+                        <span></span>
+                        
+                        <span>Maximum Resource:</span>
+                        <input value="202" max="1000" min="100" oninput="setValue('Emax', 'Emax_value')" id="Emax" type="range">
+                        <input value="202" max="1000" min="100" oninput="setValue('Emax_value', 'Emax')" id="Emax_value" type="number">
+                        <span></span>
+
+                        <span>Hits per Cast:</span>
+                        <input value="4" max="10" min="1" oninput="setValue('Hpc', 'Hpc_value')" id="Hpc" type="range">
+                        <input value="4" max="10" min="1" oninput="setValue('Hpc_value', 'Hpc')" id="Hpc_value" type="number">
+                        <span></span>
+
+                        <span>Resource Cost Reduction, %:</span>
+                        <input value="22.8" max="100" min="0" step="0.1" oninput="setValue('Ecr', 'Ecr_value')" id="Ecr" type="range">
+                        <input value="22.8" max="100" min="0" oninput="setValue('Ecr_value', 'Ecr')" id="Ecr_value" type="number">
+                        <span></span>
+
+                        <span>Lucky Hit Chance, %:</span>
+                        <input value="70" max="100" min="0" oninput="setValue('Plh', 'Plh_value')" id="Plh" type="range">
+                        <input value="70" max="100" min="0" oninput="setValue('Plh_value', 'Plh')" id="Plh_value" type="number">
+                        <span></span>
+
+                        <span>Resource Generation, %:</span>
+                        <input value="13" max="100" min="0" oninput="setValue('Rg', 'Rg_value')" id="Rg" type="range">
+                        <input value="13" max="100" min="0" oninput="setValue('Rg_value', 'Rg')" id="Rg_value" type="number">
+                        <span></span>
+
+                        <span>Exposed Flash Chance, %:</span>
+                        <input value="10" oninput="setValue('Paspect', 'Paspect_value')" id="Paspect" type="range">
+                        <input value="10" oninput="setValue('Paspect_value', 'Paspect')" id="Paspect_value" type="number">
+                        <span></span>
+
+                        <span id="Gaspect_desc">Exposed Flash Generation:</span>
+                        <input value="50" max="50" min="30" oninput="setValue('Gaspect', 'Gaspect_value')" id="Gaspect" type="range">
+                        <input value="50" max="50" min="30" oninput="setValue('Gaspect_value', 'Gaspect')" id="Gaspect_value" type="number">
+                        <input oninput="check('Gaspect')" id="Gaspect_check" type="checkbox" checked>
+                        
+                        <span>Gloves\Offhand Chance, %:</span>
+                        <input value="5" oninput="setValue('Pstat', 'Pstat_value')" id="Pstat" type="range">
+                        <input value="5" oninput="setValue('Pstat_value', 'Pstat')" id="Pstat_value" type="number">
+                        <span></span>
+
+                        <span id="Ggloves_desc">Gloves Generation, %:</span>
+                        <input value="11.3" max="50" min="0" step="0.1" oninput="setValue('Ggloves', 'Ggloves_value')" id="Ggloves" type="range">
+                        <input value="11.3" max="50" min="0" oninput="setValue('Ggloves_value', 'Ggloves')" id="Ggloves_value" type="number">
+                        <input oninput="check('Ggloves')" id="Ggloves_check" type="checkbox" checked>
+                        
+                        <span id="Goffhand_desc" class="line-through">Offhand Generation, %:</span>
+                        <input value="10.5" max="50" min="0" step="0.1" oninput="setValue('Goffhand', 'Goffhand_value')" id="Goffhand" type="range" disabled>
+                        <input value="10.5" max="50" min="0" oninput="setValue('Goffhand_value', 'Goffhand')" id="Goffhand_value" type="number" disabled>
+                        <input oninput="check('Goffhand')" id="Goffhand_check" type="checkbox">
+                    </div>
+                    <hr>
+                    <p class="result" id="result"></p>
+                    <p class="result" id="conclusion"></p>
+                    <hr>
+                    <div class="etc">
+                        <br>
+                        <a href="https://github.com/IlliumIv/D4BoneSpearEssenceCalc/commits/master" target="_blank">Changelog</a>
+                        |
+                        <a href="https://github.com/IlliumIv/D4BoneSpearEssenceCalc" target="_blank">Source</a>
+                        <br>
+                        Made by <a href="https://github.com/IlliumIv" target="_blank">IlliumIv</a>. Last updated Jul 11, 2023.
+                        <br>
+                        CC0 2023
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="calc.js"></script>
+    </body>
 </html>
