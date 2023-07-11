@@ -1,0 +1,72 @@
+<html>
+<body>
+  <div class="parent">
+      <span>Param</span><span>Value</span><span>Max</span><span>Min</span>
+      <span>Bone Spear Cost:</span><input id="Hcost" type="number" value="17" max="30" min="0" oninput="calc()"><span>30</span><span>0</span>
+      <span>Hit per Cast:</span><input id="Hpc" type="number" value="4" max="10" min="1" oninput="calc()"><span>10</span><span>1</span>
+      <span>Lucky Hit Chance, %:</span><input id="Plh" type="number" value="70" max="100" min="0" oninput="calc()"><span>100</span><span>0</span>
+      <span>Exposed Flash Chance, %:</span><input id="Paspect" type="number" value="10" oninput="calc()"><span></span><span></span>
+      <span>Exposed Flash Generation:</span><input id="Gaspect" type="number" value="50" max="50" min="30" oninput="calc()"><span>50</span><span>30</span>
+      <span>Maximum Essence:</span><input id="Emax" type="number" value="202" max="1000" min="100" oninput="calc()"><span></span><span>100</span>
+      <span>Gloves\Offhand Chance, %:</span><input id="Pstat" type="number" value="5" oninput="calc()"><span></span><span></span>
+      <span>Gloves Generation, %:</span><input id="Ggloves" type="number" value="11" max="14" min="7.5" oninput="calc()"><span>14</span><span>7.5</span>
+      <span>Offhand Generation, %:</span><input id="Goffhand" type="number" value="0" max="14" min="7.5" oninput="calc()"><span>14</span><span>7.5</span>
+      <span class="result" id="result"></span>
+    </div>
+</div>
+
+<script>
+
+function calc() {
+    const res = document.getElementById("result");
+    res.classList.remove("red", "green");
+    var Paspect = document.getElementById("Paspect").value / 100;
+    var Pstat = document.getElementById("Pstat").value / 100;
+	var Hcost = document.getElementById("Hcost").value;
+	var Hpc = document.getElementById("Hpc").value;
+	var Plh = document.getElementById("Plh").value;
+	var Gaspect = document.getElementById("Gaspect").value / 100;
+	var Ggloves = document.getElementById("Ggloves").value / 100;
+	var Goffhand = document.getElementById("Goffhand").value / 100;
+	var Emax = document.getElementById("Emax").value;
+    var Gapc = Hpc*Plh*Paspect*Gaspect;
+    var Ggpc = Hpc*Plh*Emax*Pstat*Ggloves / 100;
+    var Gopc = Hpc*Plh*Emax*Pstat*Goffhand / 100;
+    var G = Gapc + Ggpc + Gopc;
+    var compare;
+    if (G > Hcost) {
+    	compare = "<";
+    	res.classList.add("green");
+    }
+    else {
+    	compare = ">";
+    	res.classList.add("red");
+    }
+    res.innerHTML = Hcost.toString() + " " + compare + " " + G.toString();
+}
+
+calc();
+</script> 
+
+<style>
+  .parent {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+  .result {
+  	grid-area: 11 / 1 / 12 / 5;
+    text-align: center;
+  }
+  .red {
+  	color: red;
+  }
+  .green {
+  	color: green;
+  }
+</style>
+
+</body>
+</html>
